@@ -27,3 +27,10 @@ export const updateLead = (id: string, data: Partial<LeadItem>) =>
   pb.collection('leads').update<LeadItem>(id, data)
 
 export const deleteLead = (id: string) => pb.collection('leads').delete(id)
+
+export const createPublicLead = (data: Partial<LeadItem>) =>
+  pb.send('/backend/v1/public/leads', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: { 'Content-Type': 'application/json' },
+  })

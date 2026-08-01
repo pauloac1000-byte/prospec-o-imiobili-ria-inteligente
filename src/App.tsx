@@ -10,6 +10,7 @@ import MarketRadar from './pages/MarketRadar'
 import AIAssistant from './pages/AIAssistant'
 import Activities from './pages/Activities'
 import Login from './pages/Login'
+import Captacao from './pages/Captacao'
 import NotFound from './pages/NotFound'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -37,6 +38,7 @@ const App = () => (
         <Toaster />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/captacao" element={<Captacao />} />
 
           <Route
             element={

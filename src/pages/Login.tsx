@@ -12,8 +12,9 @@ import {
   CardFooter,
 } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Building2, Sparkles, ShieldCheck, Lock } from 'lucide-react'
+import { Building2, ShieldCheck, ArrowRight } from 'lucide-react'
 import { toast } from '@/components/ui/use-toast'
+import { Link } from 'react-router-dom'
 
 export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -142,9 +143,19 @@ export default function Login() {
           </form>
         </Card>
 
-        <div className="flex items-center justify-center gap-2 text-[11px] text-slate-500">
-          <ShieldCheck className="h-4 w-4 text-emerald-500" />
-          <span>Plataforma 100% segura e criptografada</span>
+        <div className="space-y-3">
+          <div className="flex items-center justify-center gap-2 text-[11px] text-slate-500">
+            <ShieldCheck className="h-4 w-4 text-emerald-500" />
+            <span>Plataforma 100% segura e criptografada</span>
+          </div>
+
+          <Link
+            to="/captacao"
+            className="flex items-center justify-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 transition-colors font-medium"
+          >
+            Quero receber oportunidades
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </div>
     </div>
