@@ -18,8 +18,8 @@ import { Link } from 'react-router-dom'
 
 export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false)
-  const [email, setEmail] = useState('pauloac1000@gmail.com')
-  const [password, setPassword] = useState('Skip@Pass')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -79,12 +79,17 @@ export default function Login() {
             </CardDescription>
           </CardHeader>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <CardContent className="space-y-4">
               {isSignUp && (
                 <div className="space-y-1.5">
-                  <Label className="text-xs text-slate-300">Seu Nome / Nome da Imobiliária</Label>
+                  <Label htmlFor="login-name" className="text-xs text-slate-300">
+                    Seu Nome / Nome da Imobiliária
+                  </Label>
                   <Input
+                    id="login-name"
+                    name="name"
+                    autoComplete="name"
                     placeholder="Ex: Corretora Elite"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -95,9 +100,15 @@ export default function Login() {
               )}
 
               <div className="space-y-1.5">
-                <Label className="text-xs text-slate-300">E-mail Corporativo</Label>
+                <Label htmlFor="login-email" className="text-xs text-slate-300">
+                  E-mail Corporativo
+                </Label>
                 <Input
+                  id="login-email"
+                  name="email"
                   type="email"
+                  autoComplete="off"
+                  placeholder="exemplo@imobiliaria.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="bg-slate-950 border-slate-800 text-slate-100"
@@ -107,7 +118,9 @@ export default function Login() {
 
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <Label className="text-xs text-slate-300">Senha</Label>
+                  <Label htmlFor="login-password" className="text-xs text-slate-300">
+                    Senha
+                  </Label>
                   {!isSignUp && (
                     <Link
                       to="/forgot-password"
@@ -118,7 +131,11 @@ export default function Login() {
                   )}
                 </div>
                 <Input
+                  id="login-password"
+                  name="password"
                   type="password"
+                  autoComplete={isSignUp ? 'new-password' : 'current-password'}
+                  placeholder="Digite sua senha"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="bg-slate-950 border-slate-800 text-slate-100"

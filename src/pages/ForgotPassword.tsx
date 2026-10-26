@@ -112,17 +112,19 @@ export default function ForgotPassword() {
               </div>
             </CardContent>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} autoComplete="off">
               <CardContent className="space-y-4">
                 <div className="space-y-1.5">
-                  <Label htmlFor="email" className="text-xs text-slate-300">
+                  <Label htmlFor="forgot-email" className="text-xs text-slate-300">
                     Seu e-mail cadastrado
                   </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                     <Input
-                      id="email"
+                      id="forgot-email"
+                      name="email"
                       type="email"
+                      autoComplete="off"
                       placeholder="exemplo@imobiliaria.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}

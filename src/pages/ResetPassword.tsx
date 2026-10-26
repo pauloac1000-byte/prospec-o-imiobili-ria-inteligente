@@ -139,7 +139,7 @@ export default function ResetPassword() {
               </div>
             </CardContent>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} autoComplete="off">
               <CardContent className="space-y-4">
                 {errorMsg && (
                   <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg flex items-start gap-2 text-xs text-rose-300">
@@ -150,8 +150,13 @@ export default function ResetPassword() {
 
                 {!tokenFromUrl && (
                   <div className="space-y-1.5">
-                    <Label className="text-xs text-slate-300">Token de Redefinição</Label>
+                    <Label htmlFor="reset-token" className="text-xs text-slate-300">
+                      Token de Redefinição
+                    </Label>
                     <Input
+                      id="reset-token"
+                      name="token"
+                      autoComplete="off"
                       placeholder="Cole aqui o token recebido no e-mail"
                       value={token}
                       onChange={(e) => setToken(e.target.value)}
@@ -165,9 +170,14 @@ export default function ResetPassword() {
                 )}
 
                 <div className="space-y-1.5">
-                  <Label className="text-xs text-slate-300">Nova Senha</Label>
+                  <Label htmlFor="reset-new-password" className="text-xs text-slate-300">
+                    Nova Senha
+                  </Label>
                   <div className="relative">
                     <Input
+                      id="reset-new-password"
+                      name="new-password"
+                      autoComplete="new-password"
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Mínimo de 8 caracteres"
                       value={password}
@@ -187,8 +197,13 @@ export default function ResetPassword() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-xs text-slate-300">Confirmar Nova Senha</Label>
+                  <Label htmlFor="reset-confirm-password" className="text-xs text-slate-300">
+                    Confirmar Nova Senha
+                  </Label>
                   <Input
+                    id="reset-confirm-password"
+                    name="confirm-password"
+                    autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Repita a nova senha"
                     value={passwordConfirm}
