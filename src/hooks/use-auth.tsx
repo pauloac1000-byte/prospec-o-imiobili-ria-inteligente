@@ -1,12 +1,26 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import pb from '@/lib/pocketbase/client'
 
+export interface AuthUser {
+  id: string
+  email: string
+  name?: string
+  role?: 'admin' | 'corretor' | string
+  avatar?: string
+  created?: string
+  updated?: string
+  verified?: boolean
+}
+
 interface AuthContextType {
-  user: any
+  user: AuthUser | null
   isAuthenticated: boolean
+  isAdmin: boolean
   signUp: (email: string, password: string, name?: string) => Promise<{ error: any }>
   signIn: (email: string, password: string) => Promise<{ error: any }>
   signOut: () => void
+  requestPasswordReset: (email: string) => Promise<{ error: any }>
+  confirmPasswordReset: (token: string, password: string) => Promise<{ error: any }>
   loading: boolean
 }
 
@@ -25,7 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const unsubscribe = pb.authStore.onChange((_token, record) => {
-      setUser(pb.authStore.isValid ? record : null)
+      setUser(pb.authStore.isValid ? (record as unknown as AuthUser) : null)
       setIsAuthenticated(pb.authStore.isValid)
     })
 
@@ -68,8 +82,40 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     pb.authStore.clear()
   }
 
+  const requestPasswordReset = async (email: string) => {
+    try {
+      await pb.collection('users').requestPasswordReset(email)
+      return { error: null }
+    } catch (error) {
+      return { error }
+    }
+  }
+
+  const confirmPasswordReset = async (token: string, password: string) => {
+    try {
+      await pb.collection('users').confirmPasswordReset(token, password, password)
+      return { error: null }
+    } catch (error) {
+      return { error }
+    }
+  }
+
+  const isAdmin = user?.role === 'admin' || user?.email === 'pauloac1000@gmail.com'
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signUp, signIn, signOut, loading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        isAdmin,
+        signUp,
+        signIn,
+        signOut,
+        requestPasswordReset,
+        confirmPasswordReset,
+        loading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

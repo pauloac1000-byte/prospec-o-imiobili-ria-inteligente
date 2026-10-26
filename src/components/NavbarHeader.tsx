@@ -10,10 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Building2, Sparkles, User, LogOut, ShieldCheck, Bell } from 'lucide-react'
+import { Building2, Sparkles, User, LogOut, ShieldCheck, Bell, Shield } from 'lucide-react'
 
 export function NavbarHeader() {
-  const { user, signOut } = useAuth()
+  const { user, signOut, isAdmin } = useAuth()
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-slate-950/90 text-slate-100 backdrop-blur">
@@ -96,6 +96,17 @@ export function NavbarHeader() {
                   Influência de Mercado: <strong className="text-amber-400">Nível Top 5%</strong>
                 </span>
               </DropdownMenuItem>
+              {isAdmin && (
+                <DropdownMenuItem asChild>
+                  <Link
+                    to="/admin/users"
+                    className="flex items-center gap-2 text-amber-300 hover:text-amber-200 focus:bg-slate-800 focus:text-amber-200 cursor-pointer w-full"
+                  >
+                    <Shield className="h-4 w-4 text-amber-400" />
+                    <span>Painel Administrativo</span>
+                  </Link>
+                </DropdownMenuItem>
+              )}
               <DropdownMenuSeparator className="bg-slate-800" />
               <DropdownMenuItem
                 onClick={signOut}

@@ -8,11 +8,14 @@ import {
   CalendarCheck,
   TrendingUp,
   ShieldCheck,
+  ShieldAlert,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/hooks/use-auth'
 
 export function Sidebar() {
   const location = useLocation()
+  const { isAdmin } = useAuth()
 
   const navItems = [
     { label: 'Visão Geral', path: '/', icon: LayoutDashboard },
@@ -66,6 +69,36 @@ export function Sidebar() {
               </Link>
             )
           })}
+
+          {isAdmin && (
+            <div className="pt-2">
+              <div className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-wider text-amber-400/80">
+                Administração
+              </div>
+              <Link
+                to="/admin/users"
+                className={cn(
+                  'flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
+                  location.pathname === '/admin/users'
+                    ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 font-semibold'
+                    : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900',
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <ShieldAlert
+                    className={cn(
+                      'h-4 w-4',
+                      location.pathname === '/admin/users' ? 'text-amber-400' : 'text-slate-400',
+                    )}
+                  />
+                  <span>Gestão de Usuários</span>
+                </div>
+                <span className="text-[10px] bg-amber-500/20 text-amber-300 font-bold px-1.5 py-0.5 rounded border border-amber-500/30">
+                  Admin
+                </span>
+              </Link>
+            </div>
+          )}
         </nav>
       </div>
 

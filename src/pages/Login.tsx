@@ -106,7 +106,17 @@ export default function Login() {
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-xs text-slate-300">Senha</Label>
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs text-slate-300">Senha</Label>
+                  {!isSignUp && (
+                    <Link
+                      to="/forgot-password"
+                      className="text-xs text-amber-400 hover:text-amber-300 transition-colors"
+                    >
+                      Esqueci minha senha
+                    </Link>
+                  )}
+                </div>
                 <Input
                   type="password"
                   value={password}
